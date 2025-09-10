@@ -26,7 +26,6 @@
     "react-dom": "19.1.0",
     "react-leaflet": "^5.0.0",
     "react-pdf": "^10.1.0",
-    "scanbot-web-sdk": "^7.2.0",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.8"
   },
