@@ -1,9 +1,10 @@
-'use client'; 
-import React from 'react'
+'use client';
+
+import React from 'react';
 import Temp from './Temp';
 
-const page = () => {
-    return <Temp />
-}
+const VerifyPage = () => {
+  return <Temp />;
+};
 
-export default page
+export default VerifyPage;
