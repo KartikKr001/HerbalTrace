@@ -3,7 +3,7 @@ import React from 'react'
 import Temp from './Temp';
 
 const page = () => {
-    <Temp />
+    return <Temp />
 }
 
 export default page
