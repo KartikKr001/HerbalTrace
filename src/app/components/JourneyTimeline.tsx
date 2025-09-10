@@ -1,16 +1,21 @@
 "use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Leaf, Factory, FlaskConical, Package } from "lucide-react";
 import { BatchData } from "../../../global";
 import dynamic from "next/dynamic";
-import { Document, Page, pdfjs } from "react-pdf";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// React-PDF worker setup
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+// ✅ Dynamically import react-pdf parts
+const Document = dynamic(
+  () => import("react-pdf").then((mod) => mod.Document),
+  { ssr: false }
+);
+const Page = dynamic(
+  () => import("react-pdf").then((mod) => mod.Page),
+  { ssr: false }
+);
 
-// Leaflet dynamic import
+// ✅ Leaflet dynamic import
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
@@ -30,6 +35,14 @@ interface JourneyTimelineProps {
 
 export default function JourneyTimeline({ batch }: JourneyTimelineProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
+
+  // ✅ Configure pdf.js worker only on client
+  useEffect(() => {
+    (async () => {
+      const { pdfjs } = await import("react-pdf");
+      pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+    })();
+  }, []);
 
   const steps = [
     {
@@ -90,7 +103,7 @@ export default function JourneyTimeline({ batch }: JourneyTimelineProps) {
           {/* PDF Thumbnail */}
           <div className="w-28 h-36 bg-gray-100 border rounded shadow overflow-hidden">
             <Document
-              file="/certificates/sample-certificate.pdf" // 👈 put your certificate file in /public/certificates
+              file="/certificates/sample-certificate.pdf"
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
             >
               <Page pageNumber={1} width={100} />
