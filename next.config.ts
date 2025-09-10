@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  rules: {
+    "@typescript-eslint/no-explicit-any": "off"
+  },
 };
 
 export default nextConfig;

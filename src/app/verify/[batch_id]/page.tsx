@@ -1,7 +1,6 @@
 'use client'; 
 import React from 'react'
 import { useParams } from 'next/navigation';
-import { BatchData } from '../../../../global';
 import {sampleBatches} from '@/utils/sampleData'
 import ProductSummaryCard from '@/app/components/ProductSummaryCard';
 
